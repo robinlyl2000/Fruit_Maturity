@@ -1,18 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:pineapple_demo1/model/imageSaving.dart';
+import 'package:pineapple_demo3/model/imageSaving.dart';
 import 'package:dio/dio.dart';
 import 'dart:async';
 import 'dart:convert';
-import 'package:pineapple_demo1/pages/upload/showResult.dart';
-import 'package:pineapple_demo1/services/loading.dart';
-
-Imagesaving save = Imagesaving();
+import 'package:pineapple_demo3/pages/upload/showResult.dart';
+import 'package:pineapple_demo3/services/loading.dart';
 
 class UploadFlask extends StatefulWidget {
 
-  UploadFlask(Imagesaving input){
-    save = input;
-  }
+  final Imagesaving save;
+  UploadFlask({this.save});
 
   @override
   _UploadFlaskState createState() => _UploadFlaskState();
@@ -23,38 +20,39 @@ class _UploadFlaskState extends State<UploadFlask> {
   bool _isFail = true;
 
   //send request to server
-  Future<void> _upload(Imagesaving save) async {
-    
-
+  Future<void> _upload() async {
     try{
       FormData formData = new FormData.fromMap({
-        "image": await MultipartFile.fromFile(save.path,  filename: save.filename ?? 'pineapple.jpg'),
-      }); 
-      
+        "image": await MultipartFile.fromFile(widget.save.path,  filename: widget.save.filename ?? 'pineapple.jpg'),
+      });  
+
+
+
       // set timer in 30 secs
-      /*Timer(Duration(seconds: 30), (){
+      Timer(Duration(seconds: 30), (){
         if(_isFail == true){
           showAlertDialog(context);
         }
-      });*/
+      });
+
+      
       Dio dio = new Dio(); 
-      Response response = await dio.post("http://10.0.2.2:5000/upload", data: formData);
+      Response response = await dio.post("https://pineapple.jeff3071.repl.co/upload", data: formData);
       Map list = json.decode(response.data);
       print(list['maturity_percent']);
-      save.ratio = list['maturity_percent'].toStringAsFixed(2);
+      widget.save.ratio = list['maturity_percent'];
       print(list['url']);
-      save.url = list['url'];
+      widget.save.url = list['url'];
       _isReady = true;
       _isFail = false;
       Navigator.push(context,MaterialPageRoute(
-        builder: (context) => ShowResult(save)
+        builder: (context) => ShowResult(save : widget.save)
       ));
     }catch(e){
       print('error: $e');
       showAlertDialog(context);
     }
   }
-
 
   void showAlertDialog(BuildContext context){
     showDialog(
@@ -109,7 +107,7 @@ class _UploadFlaskState extends State<UploadFlask> {
   void initState() {
     super.initState();
     // upload image
-    _upload(save);
+    _upload();
   }
 
   @override
@@ -121,4 +119,3 @@ class _UploadFlaskState extends State<UploadFlask> {
     }
   }
 }
-

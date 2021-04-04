@@ -1,7 +1,7 @@
-import 'package:pineapple_demo1/services/auth.dart';
-import 'package:pineapple_demo1/services/loading.dart';
+import 'package:pineapple_demo3/services/auth.dart';
+import 'package:pineapple_demo3/services/loading.dart';
 import 'package:flutter/material.dart';
-import 'package:pineapple_demo1/services/constants.dart';
+import 'package:pineapple_demo3/services/constants.dart';
 
 class Register extends StatefulWidget {
 
@@ -17,6 +17,8 @@ class _RegisterState extends State<Register> {
   final AuthService _auth = AuthService();
   final _formKey = GlobalKey<FormState>();
   bool loading = false;
+  Image bgImage;
+  Image titleImage;
 
   //text field state
   String email = '';
@@ -25,113 +27,195 @@ class _RegisterState extends State<Register> {
   String error = '';
 
   @override
+  void initState(){
+    super.initState();
+    bgImage = Image.asset('assets/bg_01.jpg');
+    titleImage = Image.asset('assets/title.png');    
+  }
+
+  @override
+  void didChangeDependencies() async{
+    super.didChangeDependencies();
+    await precacheImage(bgImage.image, context);
+    await precacheImage(titleImage.image, context);
+  }
+
+  @override
   Widget build(BuildContext context) {
     return loading ? Loading() : Scaffold(
-      backgroundColor: Colors.grey[100],
-      appBar: AppBar(
-        backgroundColor: Colors.grey[900],
-        elevation: 0.0,
-        title: Text('註冊帳號'),
-        actions: <Widget>[
-          FlatButton.icon(
-            icon: Icon(
-              Icons.person,
-              color: Colors.white,
-            ),
-            label: Text(
-              '會員登入',
-              style: TextStyle(
-                color: Colors.white
-              ),
-            ),
-            onPressed: (){
-              widget.toggleView();
-            },
-          ),
-        ],
-      ),
+      resizeToAvoidBottomInset: true,
       body: Container(
-        padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 50.0),
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: bgImage.image,
+            fit: BoxFit.cover,
+          )
+        ),
         child: Form(
           key: _formKey,
-          child: Column(
-            children: <Widget>[
-              TextFormField(
-                decoration: textInputDecoration.copyWith(hintText: '請輸入您的姓名'),
-                validator: (val) {
-                  if(val.isEmpty){
-                    return '姓名不得空白';
-                  }else{
-                    return null;
-                  }
-                },
-                onChanged: (val){
-                  setState(() {
-                    name = val;
-                  });
-                },
-              ),
-              SizedBox(height : 20.0),
-              TextFormField(
-                decoration: textInputDecoration.copyWith(hintText: '請輸入您的信箱'),
-                validator: (val) {
-                  if(val.isEmpty){
-                    return '信箱不得空白';
-                  }else{
-                    return null;
-                  }
-                },
-                onChanged: (val){
-                  setState(() {
-                    email = val;
-                  });
-                },
-              ),
-              SizedBox(height : 20.0),
-              TextFormField(
-                decoration: textInputDecoration.copyWith(hintText: '請輸入您的密碼'),
-                validator: (val) {
-                  if(val.length < 6){
-                    return '密碼長度須大於6個字母';
-                  }else{
-                    return null;
-                  }
-                },
-                obscureText: true,
-                onChanged: (val){
-                  setState(() {
-                    password = val;
-                  });
-                },
-              ),
-              SizedBox(height : 20.0),
-              RaisedButton(
-                color: Colors.grey[700],
-                child: Text(
-                  '註冊',
-                  style: TextStyle(color: Colors.white),
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 40),
+            child: CustomScrollView(
+              slivers: [
+                SliverFillRemaining(
+                  hasScrollBody: true,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: <Widget>[
+                      Spacer(flex: 20),
+                      Container(
+                        height: 150,
+                        child: Image(
+                          fit: BoxFit.fitHeight,
+                          image: titleImage.image,
+                        ),
+                      ),
+                      Text(
+                        'Register',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: 45,
+                          color: Colors.black,
+                          fontFamily: 'Brushsci',
+                        ),
+                      ),
+                      SizedBox(height: 15),
+                      TextFormField(
+                        style: TextStyle(
+                          color: Color(0xff483e1e),
+                        ),
+                        decoration: textInputDecoration.copyWith(hintText: '請輸入您的姓名'),
+                        validator: (val) {
+                          if(val.isEmpty){
+                            return '姓名不得空白';
+                          }else{
+                            return null;
+                          }
+                        },
+                        onChanged: (val){
+                          setState(() {
+                            name = val;
+                          });
+                        },
+                      ),
+                      SizedBox(height: 15),
+                      TextFormField(
+                        style: TextStyle(
+                          color: Color(0xff483e1e),
+                        ),
+                        decoration: textInputDecoration.copyWith(hintText: '請輸入您的信箱'),
+                        validator: (val) {
+                          if(val.isEmpty){
+                            return '信箱不得空白';
+                          }else{
+                            return null;
+                          }
+                        },
+                        onChanged: (val){
+                          setState(() {
+                            email = val;
+                          });
+                        },
+                      ),
+                      SizedBox(height: 15),
+                      TextFormField(
+                        style: TextStyle(
+                          color: Color(0xff483e1e),
+                        ),
+                        decoration: textInputDecoration.copyWith(hintText: '請輸入您的密碼'),
+                        validator: (val) {
+                          if(val.isEmpty){
+                            return '密碼不得空白';
+                          }else{
+                            return null;
+                          }
+                        },
+                        obscureText: true,
+                        onChanged: (val){
+                          setState(() {
+                            password = val;
+                          });
+                        },
+                      ),
+                      SizedBox(height: 8),
+                      Text(
+                        error,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: Colors.red,
+                          fontSize: 14.0
+                        )
+                      ),
+                      SizedBox(height: 8),
+                      Row(
+                        children: [
+                          Container(
+                            height: 45,
+                            width: 150,
+                            child: RaisedButton(
+                              color: Color(0xffdd4341),
+                              child: Text(
+                                '確定註冊',
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  color: Colors.white
+                                ),
+                              ),
+                              onPressed: () async {
+                                if(_formKey.currentState.validate()){
+                                  setState(() {
+                                    loading = true;
+                                  });
+                                  dynamic result = await _auth.registerWithEmailAndPassword(name, email, password);
+                                  if(result == null){
+                                    setState(() {
+                                      error = '請輸入正確的信箱格式';
+                                      loading = false;
+                                    });
+                                  }
+                                }
+                              },
+                            ),
+                          ),
+                          Spacer(),
+                          Container(
+                            height: 45,
+                            width: 150,
+                            child: RaisedButton(
+                              color: Colors.grey[700],
+                              child: Text(
+                                '登入帳號',
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  color: Colors.white
+                                ),
+                              ),
+                              onPressed: (){
+                                widget.toggleView();
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
+                      Spacer(flex: 30),
+                    ],
+                  ),
                 ),
-                onPressed: () async {
-                  if(_formKey.currentState.validate()){
-                    setState(() {
-                      loading = true;
-                    });
-                    dynamic result = await _auth.registerWithEmailAndPassword(name, email, password);
-                    if(result == null){
-                      setState(() {
-                        error = '請輸入正確的信箱格式';
-                        loading = false;
-                      });
-                    }
-                  }
-                },
-              ),
-              SizedBox(height: 12.0),
-              Text(
-                error,
-                style: TextStyle(color: Colors.red, fontSize: 14.0)
-              ),
-            ],
+              ],
+            ),
+          ),
+        ),
+      ),
+       bottomSheet: Container(
+        height: 50,
+        color: Color(0xff9aa153),
+        child: Center(
+          child: Text(
+            '2021@CCUMIS',
+            style : TextStyle(
+              fontSize: 18,
+              color: Color(0xff4d5029)
+            ),
           ),
         ),
       ),

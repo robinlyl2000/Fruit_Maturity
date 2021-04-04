@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:pineapple_demo1/model/imageSaving.dart';
-import 'package:pineapple_demo1/services/auth.dart';
-import 'package:pineapple_demo1/services/database.dart';
+import 'package:pineapple_demo3/model/imageSaving.dart';
+import 'package:pineapple_demo3/services/auth.dart';
+import 'package:pineapple_demo3/services/database.dart';
 
 class EditPage extends StatefulWidget {
 
@@ -42,7 +42,7 @@ class _EditPageState extends State<EditPage> {
             TextButton(
               child: Text('確定'),
               onPressed: () async{
-                await DatabaseService(userid : widget.save.userid, imageID: widget.save.imageID).updateImageData(widget.save);
+                await DatabaseService(userid : widget.save.userid, imageID: widget.save.imageID).updateImageData(widget.save, false);
                 Navigator.pop(context);
                 Navigator.of(context).pop();
               },

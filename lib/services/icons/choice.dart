@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:pineapple_demo1/model/imageSaving.dart';
-import 'package:pineapple_demo1/services/icons/edit.dart';
-import 'package:pineapple_demo1/services/database.dart';
+import 'package:pineapple_demo3/model/imageSaving.dart';
+import 'package:pineapple_demo3/services/icons/edit.dart';
+import 'package:pineapple_demo3/services/database.dart';
 
 
 class Choice extends StatefulWidget {
@@ -52,54 +52,130 @@ class _ChoiceState extends State<Choice> {
   
   Widget build(BuildContext context) {
     if(widget.sendid == widget.save.userid){
-      return Column(
+      return Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children : <Widget>[
-          Expanded(
-            flex: 1,
-            child: IconButton(
-              iconSize: 25,
-              icon: Icon(Icons.create),
-              onPressed: (){
-                Navigator.push(context,MaterialPageRoute(
-                  builder: (context) => EditPage(save: widget.save)
-                ));
-              },
-            )
+        children : [
+          ClipRRect(
+            borderRadius: BorderRadius.circular(10),
+            child: SizedBox(
+              width: 80,
+              child: FlatButton(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.create,
+                      size: 22,
+                    ),
+                    SizedBox(height: 1),
+                    Text(
+                      '編輯紀錄',
+                      style: TextStyle(
+                        fontSize: 12
+                      ),
+                    )
+                  ],
+                ),
+                color: Color(0xffdd4341),
+                onPressed: (){
+                  Navigator.push(context,MaterialPageRoute(
+                    builder: (context) => EditPage(save: widget.save)
+                  ));
+                },
+              ),
+            ),
           ),
-          Expanded(
-            flex: 1,
-            child: IconButton(
-              iconSize: 25,
-              icon: Icon(Icons.clear),
-              onPressed: (){
-                _showMyDialog();
-              },
-            )
+          Spacer(flex: 1),
+          ClipRRect(
+            borderRadius: BorderRadius.circular(10),
+            child: SizedBox(
+              width: 80,
+              child: FlatButton(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.clear,
+                      size: 22,
+                    ),
+                    SizedBox(height: 1),
+                    Text(
+                      '刪除紀錄',
+                      style: TextStyle(
+                        fontSize: 12
+                      ),
+                    )
+                  ],
+                ),
+                color: Color(0xffdd4341),
+                onPressed: (){
+                  _showMyDialog();
+                },
+              ),
+            ),
           ),
-          Expanded(
-            flex: 1,
-            child: IconButton(
-              iconSize: 25,
-              icon: Icon(Icons.share),
-              onPressed: () async{
-                
-              },
-            )
+          Spacer(flex: 1),
+          ClipRRect(
+            borderRadius: BorderRadius.circular(10),
+            child: SizedBox(
+              width: 80,
+              child: FlatButton(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.share,
+                      size: 22,
+                    ),
+                    SizedBox(height: 1),
+                    Text(
+                      '分享紀錄',
+                      style: TextStyle(
+                        fontSize: 12
+                      ),
+                    )
+                  ],
+                ),
+                color: Color(0xffdd4341),
+                onPressed: (){
+                  
+                },
+              ),
+            ),
           ),
         ]
       );
     }else{
-      return Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
+      return Row(
+        mainAxisAlignment: MainAxisAlignment.center,
         children : <Widget>[
-          Expanded(
-            flex: 1,
-            child: IconButton(
-              iconSize: 25,
-              icon: Icon(Icons.share),
-              onPressed: (){},
-            )
+          ClipRRect(
+            borderRadius: BorderRadius.circular(10),
+            child: SizedBox(
+              width: 80,
+              child: FlatButton(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.share,
+                      size: 22,
+                    ),
+                    SizedBox(height: 1),
+                    Text(
+                      '分享紀錄',
+                      style: TextStyle(
+                        fontSize: 12
+                      ),
+                    )
+                  ],
+                ),
+                color: Color(0xffdd4341),
+                onPressed: (){
+                  _showMyDialog();
+                },
+              ),
+            ),
           ),
         ]
       );

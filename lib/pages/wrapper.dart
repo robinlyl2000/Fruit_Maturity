@@ -1,6 +1,6 @@
-import 'package:pineapple_demo1/model/user.dart';
-import 'package:pineapple_demo1/pages/authenticate/authenticate.dart';
-import 'package:pineapple_demo1/pages/home/home.dart';
+import 'package:pineapple_demo3/model/user.dart';
+import 'package:pineapple_demo3/pages/authenticate/authenticate.dart';
+import 'package:pineapple_demo3/pages/home/home.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

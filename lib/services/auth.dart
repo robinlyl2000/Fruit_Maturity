@@ -1,5 +1,5 @@
-import 'package:pineapple_demo1/model/user.dart';
-import 'package:pineapple_demo1/services/database.dart';
+import 'package:pineapple_demo3/model/user.dart';
+import 'package:pineapple_demo3/services/database.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class AuthService{

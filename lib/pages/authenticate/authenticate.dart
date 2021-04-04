@@ -1,5 +1,5 @@
-import 'package:pineapple_demo1/pages/authenticate/register.dart';
-import 'package:pineapple_demo1/pages/authenticate/sign_in.dart';
+import 'package:pineapple_demo3/pages/authenticate/register.dart';
+import 'package:pineapple_demo3/pages/authenticate/sign_in.dart';
 import 'package:flutter/material.dart';
 
 class Authenticate extends StatefulWidget {

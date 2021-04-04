@@ -5,33 +5,32 @@ class Imagesaving{
   String path; 
   File file; 
   String filename;
-  String ratio = '';
+  double ratio = 0.0;
   String url; 
   String comment;
   String userid;
   String time;
   String imageID;
   String username;
-  Imagesaving({this.filename,this.path, this.file, this.ratio, this.url, this.comment,this.userid, this.time, this.username, this.imageID});
+  String tag;
+  int likenum;
+  Imagesaving({this.likenum,this.filename,this.path, this.file, this.ratio, this.url, this.comment,this.userid, this.time, this.username, this.imageID, this.tag});
 
   int getlevel(){
-    if(ratio == ''){
+    if(ratio == 0.0){
       return null;
     }else{
-      double rate = double.parse(ratio);
-      if(rate >= 0 && rate < 16.67){
-        return 0;
-      }else if(rate >= 0 && rate < 16.67){
+      if(ratio >= 0 && ratio < 16.67){
         return 1;
-      }else if(rate >= 16.67 && rate < 33.34){
+      }else if(ratio >= 16.67 && ratio < 33.34){
         return 2;
-      }else if(rate >= 33.34 && rate < 50.01){
+      }else if(ratio >= 33.34 && ratio < 50.01){
         return 3;
-      }else if(rate >= 50.01 && rate < 66.68){
+      }else if(ratio >= 50.01 && ratio < 66.68){
         return 4;
-      }else if(rate >= 66.68 && rate < 83.35){
+      }else if(ratio >= 66.68 && ratio < 83.35){
         return 5;
-      }else if(rate >= 83.35 && rate <= 100){
+      }else if(ratio >= 83.35 && ratio <= 100){
         return 6;
       }else{
         return null;
@@ -47,6 +46,11 @@ class Imagesaving{
     }else{
       return colorlist[level];
     }
+  }
+
+  String gettime(){
+    var a = time.split('   ');
+    return a[0]+'\n'+a[1];
   }
 
 }

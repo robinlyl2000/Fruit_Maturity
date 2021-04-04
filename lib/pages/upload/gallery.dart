@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:pineapple_demo1/model/imageSaving.dart';
-import 'package:pineapple_demo1/services/loading.dart';
-import 'package:pineapple_demo1/services/uploadFlask.dart';
+import 'package:pineapple_demo3/model/imageSaving.dart';
+import 'package:pineapple_demo3/services/loading.dart';
+import 'package:pineapple_demo3/services/uploadFlask.dart';
 import 'dart:io';
+import 'package:pineapple_demo3/services/database.dart';
 
 Imagesaving save = Imagesaving();
 
@@ -32,8 +33,9 @@ class _GalleryPageState extends State<GalleryPage> {
       _isReady = true;
       save.path = pickedFile.path;
       save.file = File(save.path);
+      save.username = await DatabaseService().getusername(save.userid);
       Navigator.push(context,MaterialPageRoute(
-        builder: (context) => UploadFlask(save)
+        builder: (context) => UploadFlask(save: save)
       ));
     }catch(e){
       print(e.toString());
@@ -52,7 +54,7 @@ class _GalleryPageState extends State<GalleryPage> {
     if(_isReady == false){
       return Loading();
     }else{
-      return null;
+      return Container();
     }
   }
 }

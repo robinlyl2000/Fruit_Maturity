@@ -1,9 +1,9 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
-import 'package:pineapple_demo1/model/imageSaving.dart';
+import 'package:pineapple_demo3/model/imageSaving.dart';
 import 'dart:io';
-
-import 'package:pineapple_demo1/services/uploadFlask.dart';
+import 'package:pineapple_demo3/services/database.dart';
+import 'package:pineapple_demo3/services/uploadFlask.dart';
 
 Imagesaving save = Imagesaving();
 
@@ -123,8 +123,9 @@ class _CameraPageState extends State<CameraPage> {
                   save.file = File(save.path);
                   save.filename = e.name;
                 });
+                save.username = await DatabaseService().getusername(save.userid);
                 await Navigator.push(context,MaterialPageRoute(
-                  builder: (context) => UploadFlask(save)
+                  builder: (context) => UploadFlask(save: save)
                 ));
               },
               elevation: 2.0,
