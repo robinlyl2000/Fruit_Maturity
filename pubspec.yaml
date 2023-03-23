@@ -24,7 +24,7 @@ dependencies:
   flutter:
     sdk: flutter
   image_picker: ^0.6.7+15
-  dio: ^3.0.10
+  dio: ^5.0.0
   camera: ^0.6.4+5
   flutter_spinkit: ^4.1.2+1
   firebase_auth: ^0.20.0+1
