@@ -26,15 +26,12 @@ class _UploadFlaskState extends State<UploadFlask> {
         "image": await MultipartFile.fromFile(widget.save.path,  filename: widget.save.filename ?? 'pineapple.jpg'),
       });  
 
-
-
       // set timer in 30 secs
       Timer(Duration(seconds: 30), (){
         if(_isFail == true){
           showAlertDialog(context);
         }
       });
-
       
       Dio dio = new Dio(); 
       Response response = await dio.post("https://pineapple.jeff3071.repl.co/upload", data: formData);
